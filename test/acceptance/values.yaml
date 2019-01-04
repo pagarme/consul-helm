@@ -1,0 +1,32 @@
+syncCatalog:
+  # True if you want to enable the catalog sync. "-" for default.
+  enabled: true
+  image: null
+  default: true # true will sync by default, otherwise requires annotation
+
+  # toConsul and toK8S control whether syncing is enabled to Consul or K8S
+  # as a destination. If both of these are disabled, the sync will do nothing.
+  toConsul: true
+  toK8S: true
+
+  # k8sPrefix is the service prefix to prepend to services before registering
+  # with Kubernetes. For example "consul-" will register all services
+  # prepended with "consul-".
+  k8sPrefix: null
+
+  # syncClusterIPServices syncs services of the ClusterIP type, which may
+  # or may not be broadly accessible depending on your Kubernetes cluster.
+  # Set this to false to skip syncing ClusterIP services.
+  syncClusterIPServices: true
+server:
+  enabled: "true"
+  image: null
+  replicas: 1
+  bootstrapExpect: 1 # Should <= replicas count
+
+  # storage and storageClass are the settings for configuring stateful
+  # storage for the server pods. storage should be set to the disk size of
+  # the attached volume. storageClass is the class of storage which defaults
+  # to null (the Kube cluster will pick the default).
+  storage: 1Gi
+  storageClass: hostpath

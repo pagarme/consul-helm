@@ -10,7 +10,7 @@ load _helpers
   local server_count=$(kubectl exec "$(name_prefix)-server-0" consul members |
       grep server |
       wc -l)
-  [ "${server_count}" -eq "3" ]
+  [ "${server_count}" -eq "1" ]
 
   # Clean up
   helm_delete
