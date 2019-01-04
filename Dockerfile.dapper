@@ -1,0 +1,30 @@
+FROM ubuntu
+
+ARG DAPPER_HOST_ARCH
+ENV HOST_ARCH=${DAPPER_HOST_ARCH} ARCH=${DAPPER_HOST_ARCH}
+
+#install pre-req
+RUN apt-get update && \
+    apt-get install -y software-properties-common
+
+RUN apt-add-repository ppa:duggan/bats && \
+    add-apt-repository ppa:eugenesan/ppa && \
+    apt-get update && \
+    apt-get install -y git curl ca-certificates bats python-pip autoconf dh-autoreconf jq && \
+    pip install yq && \
+    rm -f /bin/sh && ln -s /bin/bash /bin/sh 
+
+RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash && \
+    helm init -c 
+
+ENV HELM_HOME /root/.helm
+ENV DAPPER_ENV REPO TAG DRONE_TAG
+ENV DAPPER_SOURCE /consul/
+ENV DAPPER_OUTPUT ./charts
+ENV DAPPER_DOCKER_SOCKET true
+ENV TRASH_CACHE ${DAPPER_SOURCE}/.trash-cache
+ENV HOME ${DAPPER_SOURCE}
+WORKDIR ${DAPPER_SOURCE}
+
+ENTRYPOINT ["./scripts/entry"]
+CMD ["ci"]
