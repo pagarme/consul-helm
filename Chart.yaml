@@ -3,6 +3,7 @@ name: consul
 version: 0.4.0
 description: Install and configure Consul on Kubernetes.
 home: https://www.consul.io
+icon: https://s3.amazonaws.com/hashicorp-marketing-web-assets/brand/Consul_PrimaryLogo_FullColor.BkqqyRBpl.svg
 sources:
   - https://github.com/hashicorp/consul
   - https://github.com/hashicorp/consul-helm
