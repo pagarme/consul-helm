@@ -17,9 +17,10 @@ RUN apt-add-repository ppa:duggan/bats && \
 RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash && \
     helm init -c 
 
+ENV CHART_REPO consul-helm
 ENV HELM_HOME /root/.helm
 ENV DAPPER_ENV REPO TAG DRONE_TAG
-ENV DAPPER_SOURCE /consul/
+ENV DAPPER_SOURCE /${CHART_REPO}/
 ENV DAPPER_OUTPUT ./charts
 ENV DAPPER_DOCKER_SOCKET true
 ENV TRASH_CACHE ${DAPPER_SOURCE}/.trash-cache
